@@ -1,0 +1,34 @@
+.leftBar {
+    width: 256px;
+    height: 100vh;   
+    background-color: #242424;
+}
+.workSpace {
+    width: calc(100vw - 256px);
+    height: 100vh;
+    background-color: #e8f0fe;
+    position: relative;
+}
+
+.connectionButton {
+    background-color: aquamarine;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    color: #fffe;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 150px;
+    height: 50px;
+    transition: transform 100ms ease-in;
+    border: 1px solid lightgreen;
+}
+
+.connectionButton:active {
+    transform: scale(.8);
+}
