@@ -1,12 +1,16 @@
 import styles from '../styles/mainStyles.module.css';
 import { Button } from './Button';
 
-export const WorkSpace = () => {
+interface WorkSpaceProps {
+    changeModalState: () => void
+}
+
+export const WorkSpace = ({ changeModalState }:WorkSpaceProps) => {
     return (
         <section className={styles.workSpace}>
             <Button
                 value="Create Connection"
-                onClick={() => console.log("click")}
+                onClick={changeModalState}
                 className={styles.connectionButton}
             />
         </section>

@@ -1,8 +1,9 @@
 .leftBar {
     width: 256px;
-    height: 100vh;   
+    height: 100vh;
     background-color: #242424;
 }
+
 .workSpace {
     width: calc(100vw - 256px);
     height: 100vh;
@@ -12,11 +13,12 @@
 
 .connectionButton {
     background-color: aquamarine;
+    background-color: lightblue;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    color: #242424;
     padding: 5px;
-    color: #fffe;
     position: absolute;
     left: 0;
     right: 0;
@@ -26,9 +28,100 @@
     width: 150px;
     height: 50px;
     transition: transform 100ms ease-in;
-    border: 1px solid lightgreen;
+    /* border: 1px solid lightgreen; */
+    font-size: .9rem;
 }
 
 .connectionButton:active {
     transform: scale(.8);
+}
+
+.modalContainer {
+    animation: modal-background-animation 300ms linear;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #24242488;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    animation: modal-animation  200ms linear;
+    background-color: white;
+    padding: 20px;
+    /* height: 70vh; */
+    width: 500px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.mainForm {
+    font-family: 'Mukta', sans-serif;
+}
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+.formGroupLabel {
+    color: gray;
+}
+.inputForm {
+    background-color:aliceblue;
+    padding: 10px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+    width: 60%;
+    font-size: 15px;
+}
+
+.btnCancel {
+    background-color: transparent;
+    border-radius: 3px;
+    border:none;
+    color: gray;
+    cursor:pointer;
+    margin: 5px;
+    padding: 5px    10px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+.btnCancel:hover {
+    background-color:rgba(204, 204, 204, 0.329);
+}
+.btnTryToConnect {
+    background-color: lightblue;
+    border:none;
+    border-radius: 3px;
+    cursor:pointer;
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.btnTryToConnect:hover {
+    background-color: rgb(159, 214, 233);
+}
+
+@keyframes modal-animation {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+@keyframes modal-background-animation {
+    from {
+        opacity: 0;
+    }to {
+        opacity: 1;
+    }
 }
