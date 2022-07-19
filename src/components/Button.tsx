@@ -2,7 +2,7 @@ import styles from '../styles/mainStyles.module.css';
 
 interface ButtonInterface {
     value: string, 
-    onClick: () => void,
+    onClick: any,
     className: string
 }
 

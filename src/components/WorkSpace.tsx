@@ -2,7 +2,7 @@ import styles from '../styles/mainStyles.module.css';
 import { Button } from './Button';
 
 interface WorkSpaceProps {
-    changeModalState: () => void
+    changeModalState: any
 }
 
 export const WorkSpace = ({ changeModalState }:WorkSpaceProps) => {
