@@ -1,9 +1,6 @@
 import { ReactElement } from 'react';
+import { ModalProps } from '../interfaces/interfaces';
 import styles from '../styles/mainStyles.module.css';
-
-interface ModalProps {
-  children: ReactElement | ReactElement[]
-}
 
 export const Modal = ({ children }: ModalProps) => {
   return (

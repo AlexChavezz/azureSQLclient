@@ -1,48 +1,66 @@
-import { currentConfig, db, dbs } from '../App';
+import { useContext } from 'react';
+import { CurrentConfigContext } from '../context/CurrentConfigContext';
+import { CurrentTableContext } from '../context/CurrentTableContext';
+import { db, dbs, Table } from '../interfaces/interfaces';
 import styles from '../styles/mainStyles.module.css';
 
 interface LeftBar {
-    dataBases: dbs | null
-    currentConfig: currentConfig | null
+    dataBases: dbs | null,
 }
 
-export const LeftBar = ({ dataBases, currentConfig }:LeftBar) => {
-    console.log(dataBases)
+export const LeftBar = ({ dataBases }: LeftBar) => {
     return (
-        <aside className={ styles.leftBar }>
+        <aside className={styles.leftBar}>
             {
                 dataBases &&
-                dataBases.map( db => <Db {...db} key={db.dbName}currentConfig={currentConfig}/>)
-            }            
+                dataBases.map(db => <Db db={db} key={db.dbName} />)
+            }
         </aside>
     );
 }
 
-// interface DbProps {
-//     db,
-//     currentConfig: currentConfig | null
-// }
+interface DbProps {
+    db: db
+}
 
-const Db = ({dbName, tables, currentConfig}:any) => {
-    function getTable(table: string){
+const Db = ({ db }: DbProps) => {
+    const { dbName, tables } = db;
+    
+    return (
+        <article className={styles.dbContainer}>
+            <span className={styles.dbTitle}>{dbName}</span>
+            <ul>
+                {
+                    tables.map(table => <ListItem {...table} key={table.create_date} />)
+                }
+            </ul>
+        </article>
+    );
+}
+
+
+const ListItem = ({ table_name, schema_name, }: Table) => {
+    const { currentConfig } = useContext(CurrentConfigContext);
+    const { setCurrentTable } = useContext(CurrentTableContext);
+    function getTable(table: string) {
         window.fetch("http://localhost:8080/getTable", {
-            method:'POST', 
-            headers:{'Content-Type': 'application/json'},
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 table,
-                currentConfig
+                currentConfig,
             })
         })
-        .then(res => res.json())
-        .then(res => console.log(res))
-        .catch(console.log)
+            .then(res => res.json())
+            .then(res => {
+                setCurrentTable(res);
+            })
+            .catch(console.log)
     }
     return (
-        <article>
-            <span>{dbName}</span>
-            {
-                tables.map( table => <button onClick={()=>getTable(table.table_name)} key={table.table_name}>{table.table_name}</button>)
-            }
-        </article>
+        <li 
+            className={styles.listItem}
+            onClick={() => getTable(table_name)}
+        >{table_name}</li>
     );
 }

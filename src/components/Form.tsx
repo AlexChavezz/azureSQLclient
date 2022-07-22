@@ -1,22 +1,8 @@
 import React from 'react';
-import { currentConfig, dbs } from '../App';
 import { useForm } from '../hooks/useForm';
+import { ConnectionForm, FormProps } from '../interfaces/interfaces';
 import styles from '../styles/mainStyles.module.css';
 import { Button } from './Button';
-
-interface FormProps {
-    className?: string,
-    setModal: any,
-    setDataBases: React.Dispatch<React.SetStateAction<dbs | null>>
-    setCurrentConfig: React.Dispatch<React.SetStateAction<currentConfig | null>>
-}
-
-interface ConnectionForm {
-    user: string,
-    server: string,
-    password: string,
-    database: string
-}
 
 const initialState = {
     user: "",
@@ -42,7 +28,7 @@ export const Form = ({ setModal, setDataBases, setCurrentConfig }: FormProps) =>
         .then( res => {
             console.log(res)
             setModal(false);
-            setDataBases([{dbName: database, tables: [...res]}])
+            setDataBases([{dbName: database, tables: [...res]}]);
             setCurrentConfig({...values});
         })
     }

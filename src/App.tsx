@@ -3,39 +3,36 @@ import { Form } from "./components/Form";
 import { LeftBar } from "./components/LeftBar";
 import { Modal } from "./components/Modal";
 import { WorkSpace } from "./components/WorkSpace";
-
-export interface db {
-  dbName: string,
-  tables: {
-    create_date: string
-    modify_date: string,
-    schema_name: string,
-    table_name: string
-  
-  }[]
-}
-
-export type dbs = db[]
-
-export interface currentConfig {
-  user: string,
-  password: string,
-  server: string,
-  database: string
-}
+import { CurrentConfigContext } from "./context/CurrentConfigContext";
+import { CurrentTableContext } from "./context/CurrentTableContext";
+import { CurrentConfig, dbs } from "./interfaces/interfaces";
 
 export default () => {
   const [modal, setModal] = useState<boolean>(false);
   const [dataBases, setDataBases] = useState<dbs | null>(null);
-  const [currentConfig, setCurrentConfig] = useState<currentConfig | null>(null);
+  const [currentConfig, setCurrentConfig] = useState<CurrentConfig | null>(null);
+  const [currentTable, setCurrentTable] = useState<{}[] | null>(null);
+
   function changeModalState(e: React.FormEvent) {
     e.preventDefault();
     setModal(!modal);
   }
   return (
-    <>
-      <LeftBar dataBases={dataBases} currentConfig={currentConfig}/>
-      <WorkSpace changeModalState={changeModalState} />
+    <CurrentTableContext.Provider value={{
+      currentTable,
+      setCurrentTable
+    }}>
+    <CurrentConfigContext.Provider value={{
+      currentConfig,
+      setCurrentConfig
+    }}>
+      <LeftBar 
+        dataBases={dataBases} 
+      />
+      <WorkSpace 
+        changeModalState={changeModalState} 
+        currentTable={currentTable}
+      />
       {
         modal &&
         <Modal>
@@ -46,6 +43,7 @@ export default () => {
           />
         </Modal>
       }
-    </>
+    </CurrentConfigContext.Provider>
+    </CurrentTableContext.Provider>
   );
 }
