@@ -145,9 +145,66 @@
     padding: 10px;
     transition: background 200ms ease-in;
 }
+
 .listItem:hover {
     background-color: rgba(204, 204, 204, 0.664);
 }
+
+.table {
+    /* width: 100%; */
+    border-spacing: 0ch;
+}
+
+.thead {
+    color: #fff;
+}
+
+.theadRow {
+    background-color: #3b4351;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.theadTitle {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 200px;
+    padding: 5px;
+}
+.addRow {
+    background-color: #198754;
+    border:1px solid #198754;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.addRow:hover {
+    background-color: #13653f;
+}
+.removeBtn {
+    width: 40px;
+    height: 40px;
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+    color:#fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+.editBtn {
+    width: 50px;
+    height: 50px;
+}
+
+.imageButton {
+    width: 40px;
+    height: 40px;
+}
+
 @keyframes modal-animation {
     from {
         opacity: 0;

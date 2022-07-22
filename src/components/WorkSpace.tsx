@@ -3,6 +3,10 @@ import { CurrentTableContext } from '../context/CurrentTableContext';
 import { WorkSpaceProps } from '../interfaces/interfaces';
 import styles from '../styles/mainStyles.module.css';
 import { Button } from './Button';
+import RemoveIcon from '../assets/delete_FILL0_wght400_GRAD0_opsz48.svg';
+import EditIcon from '../assets/edit_note_FILL0_wght400_GRAD0_opsz48.svg';
+
+
 
 export const WorkSpace = ({ changeModalState, currentTable }: WorkSpaceProps) => {
     return (
@@ -26,51 +30,64 @@ export const WorkSpace = ({ changeModalState, currentTable }: WorkSpaceProps) =>
 export const MainTable = () => {
     const { currentTable } = useContext(CurrentTableContext);
     const [headers, setHeaders] = useState<string[] | []>([]);
-    useEffect(()=>{
-        if(currentTable){
+    useEffect(() => {
+        if (currentTable) {
             setHeaders(Object.keys(currentTable[0]));
         }
-    },[])
-    console.log(currentTable);
-    console.log(headers);
-    if(!currentTable){
+    }, [currentTable])
+    if (!currentTable) {
         return <>loading</>
     }
     return (
-        <table>
-            <thead>
-                <tr>
+        <>
+            <Button onClick={() => console.log('make something')} className={styles.addRow} value={"Insert Row"} />
+            <table className={styles.table}>
+                <thead className={styles.thead}>
+                    <tr className={styles.theadRow}>
+                        {
+                            headers?.map(colName => <th key={colName} className={styles.theadTitle}>{colName}</th>)
+                        }
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody className={styles.tbody}>
                     {
-                        headers?.map( colName => {
-                            console.log(colName);
-                            return <th key={colName}>{colName}</th>
-                    } )
+                        currentTable?.map(row => <TableItem {...row} headers={headers} />)
                     }
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    currentTable?.map(row => <TableItem {...row} headers={headers}/>)
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </>
     );
 }
 
-
-const TableItem = (props:any) => {
-    console.log(props)
-    const {headers} = props;
-    
+const TableItem = (props: any) => {
+    const { headers } = props;
     return (
-        <tr>
+        <tr className={styles.row}>
             {
-                headers.map( col => <td key={col}>{props[col]}</td>)
+                headers.map((col: string) =>
+                    <td key={col}>{props[col]}</td>
+                )
+
             }
-            {/* <td>{id}</td>
-            <td>{age}</td>
-            <td>{email}</td>
-            <td>{name}</td> */}
+            <td>
+                <Button
+                    image={RemoveIcon}
+                    imageAlt="delete-icon"
+                    value=''
+                    onClick={() => console.log("remove action")}
+                    className={styles.removeBtn}
+                    imageClassName={styles.imageButton}
+                />
+                <Button
+                    image={EditIcon}
+                    imageAlt="edit-icon"
+                    value=''
+                    onClick={() => console.log("edit action")}
+                    className={styles.editBtn}
+                    imageClassName={styles.imageButton}
+                />
+            </td>
         </tr>
     );
 }
