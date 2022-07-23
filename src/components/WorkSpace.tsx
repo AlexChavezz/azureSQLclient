@@ -3,8 +3,8 @@ import { CurrentTableContext } from '../context/CurrentTableContext';
 import { WorkSpaceProps } from '../interfaces/interfaces';
 import styles from '../styles/mainStyles.module.css';
 import { Button } from './Button';
-import RemoveIcon from '../assets/delete_FILL0_wght400_GRAD0_opsz48.svg';
-import EditIcon from '../assets/edit_note_FILL0_wght400_GRAD0_opsz48.svg';
+// import RemoveIcon from '../assets/delete_FILL0_wght400_GRAD0_opsz48.svg';
+// import EditIcon from '../assets/edit_note_FILL0_wght400_GRAD0_opsz48.svg';
 
 
 
@@ -40,7 +40,11 @@ export const MainTable = () => {
     }
     return (
         <>
+        <section>
             <Button onClick={() => console.log('make something')} className={styles.addRow} value={"Insert Row"} />
+            <Button onClick={() => console.log('make something')} className={styles.clearButton} value={"Clear"} />
+        </section>
+
             <table className={styles.table}>
                 <thead className={styles.thead}>
                     <tr className={styles.theadRow}>
@@ -70,22 +74,16 @@ const TableItem = (props: any) => {
                 )
 
             }
-            <td>
+            <td className={styles.actions}>
                 <Button
-                    image={RemoveIcon}
-                    imageAlt="delete-icon"
-                    value=''
+                    value='Remove'
                     onClick={() => console.log("remove action")}
-                    className={styles.removeBtn}
-                    imageClassName={styles.imageButton}
+                    className={styles.removeBtn + " " + styles.btnAction}
                 />
                 <Button
-                    image={EditIcon}
-                    imageAlt="edit-icon"
-                    value=''
+                    value='Edit'
                     onClick={() => console.log("edit action")}
-                    className={styles.editBtn}
-                    imageClassName={styles.imageButton}
+                    className={styles.editBtn + " " + styles.btnAction}
                 />
             </td>
         </tr>
